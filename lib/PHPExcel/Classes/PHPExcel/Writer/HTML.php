@@ -802,10 +802,10 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 		$css = array();
 
 		// Create CSS
-		$css['border-bottom']	= $this->_createCSSStyleBorder($pStyle->getBottom());
-		$css['border-top']		= $this->_createCSSStyleBorder($pStyle->getTop());
-		$css['border-left']		= $this->_createCSSStyleBorder($pStyle->getLeft());
-		$css['border-right']	= $this->_createCSSStyleBorder($pStyle->getRight());
+        if(false !== ($tCss = $this->_createCSSStyleBorder($pStyle->getBottom()))) $css['border-bottom']	= $tCss;
+        if(false !== ($tCss = $this->_createCSSStyleBorder($pStyle->getTop()))) $css['border-top']	= $tCss;
+        if(false !== ($tCss = $this->_createCSSStyleBorder($pStyle->getLeft()))) $css['border-left']	= $tCss;
+        if(false !== ($tCss = $this->_createCSSStyleBorder($pStyle->getRight()))) $css['border-right']	= $tCss;
 
 		// Return
 		return $css;
@@ -818,6 +818,8 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 * @return	string
 	 */
 	private function _createCSSStyleBorder(PHPExcel_Style_Border $pStyle) {
+        if($pStyle->getBorderStyle() == PHPExcel_Style_Border::BORDER_NONE) return false;
+
 		// Construct HTML
 		$css = '';
 
