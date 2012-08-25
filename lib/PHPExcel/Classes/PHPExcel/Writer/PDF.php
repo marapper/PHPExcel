@@ -285,8 +285,11 @@ class PHPExcel_Writer_PDF extends PHPExcel_Writer_HTML implements PHPExcel_Write
 		$pdf->SetFont($this->_font);
 
         $map = array(
+            //for none
+            '/border="1"/i' => '',
+
             '/cellspacing="(\d+)"/i' => 'cellspacing="0"',
-            '/cellspadding="(\d+)"/i' => 'cellspadding="0"',
+            '/cellpadding="(\d+)"/i' => 'cellpadding="0"',
         );
         $html = preg_replace(array_keys($map), array_values($map), $html);
 
